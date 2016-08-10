@@ -1,49 +1,53 @@
-//Tres en raya
+//Three in a row
 
+/*
+				Coded by ecomaikgolf
+					iecomaikgolf@gmail.com
+						@ecomaikgolf
+																	*/
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 #include <conio.h>
 
 void loop(char c[3][3]);
-void Intro_Primera (char c[3][3]);
-void Intro_Yo(char c[3][3]);
-void Intro_IA (char[3][3]);
-int ganador(char c[3][3]);
+void Play_First (char c[3][3]);
+void Play_Me(char c[3][3]);
+void Play_IA (char[3][3]);
+int winner(char c[3][3]);
 int main(){
-	
+
 	char c [3][3];
-	
-	loop (c);//Call all elemental functions and refresh the screen
-	
+	loop (c); //Call all elemental functions and refresh the screen
+
 	system("pause");
 	return 0;
 }
 
 void loop(char c[3][3]){
 	int i,j;
-	
-	i = 0; 
-	
-	Intro_Primera(c);
-	tablero(c);
-	
+
+	i = 0;
+
+	Play_First(c);
+	board(c);
+
 	do{
 		system("cls");
-		tablero(c);
-		
+		board(c);
+
 		if(i % 2 == 0){
-			Intro_Yo(c);
+			Play_Me(c);
 		}else{
-			Intro_IA(c);
+			Play_IA(c);
 		}
-		j = ganador(c);
+		j = winner(c);
 		i++;
-		
+
 	}while(i<=9 && j == 2);
 	system("cls");
-	tablero(c);
-	
+	board(c);
+
 	if(j == 0){
 		printf("Congrats!! You win!\n\n");
 	}
@@ -54,16 +58,16 @@ void loop(char c[3][3]){
 	else{
 		printf("Draw! Try again!!");
 	}
-	
+
 }
 }
 
-void Intro_Primera (char c[3][3]){//Give valors to matrix
+void Play_First (char c[3][3]){//Give valors to matrix
 	int i,j;
 	char aux;
-	
+
 	aux = '1';
-	
+
 	for (i = 2 ; i>=0 ; i--){
 		for(j = 0 ; j<3 ; j++){
 			c[i][j] = aux++;
@@ -71,13 +75,13 @@ void Intro_Primera (char c[3][3]){//Give valors to matrix
 	}
 }
 
-void Intro_Yo(char c[3][3]){
+void Play_Me(char c[3][3]){
 	int i,j,k;
 	char aux;
-	
+
 	do{
 		do{
-			printf("Do your play: ");
+			printf("Make a move: ");
 			aux = _getche();
 			printf("\n");
 		}while(aux < '1' || aux > '9');
@@ -166,35 +170,35 @@ void Intro_Yo(char c[3][3]){
 			}
 		}
 	}while(k == 1);
-	
+
 	c[i][j] = '#';
 }
 
-void Intro_IA (char c[3][3]){
+void Play_IA (char c[3][3]){
 	int i, j, k;
 	char aux;
-	
+
 	srand(time(NULL));
-	
+
 	do{
 		i = rand()%3;
 		j = rand()%3;
-		k = 0;	
-		
+		k = 0;
+
 		if(c [i][j] == '#' || c[i][j] == '*'){
 			k = 1;
 		}
 	}while(k == 1);
-	
+
 	c[i][j] = '*';
-	
-	
-	
+
+
+
 }
 
-void tablero (char c[3][3]){
+void board (char c[3][3]){
 	int i,j;
-	
+
 	for(i = 0;i<3;i++){
 		for(j = 0;j<3;j++){
 			if( j <2){
@@ -207,12 +211,12 @@ void tablero (char c[3][3]){
 		if ( i < 2){
 			printf("\n-----------\n");
 		}
-		
+
 	}
 	printf("\n\n");
 }
 
-int ganador(char c[3][3]){
+int winner(char c[3][3]){
 	if(c[0][0] == '#' || c[0][0] == '*'){
 		if(c[0][0] == c[0][1] && c[0][0] == c[0][2]){
 			if (c[0][0] == '#'){
